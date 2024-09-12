@@ -43,13 +43,9 @@ class RecintosZoo {
     if(possuiCarivoro && animaisCarnivoros.includes(animal)){
       return true;
     }
-    if(!possuiCarivoro && !animal.carnivoro){
+    if((!possuiCarivoro && !animal.carnivoro) || (!possuiCarivoro && animal.carnivoro && recinto.animais.includes(animal.especie))){
       return true;
     }
-    if(!possuiCarivoro && animal.carnivoro && recinto.animais.includes(animal.especie)){
-      return true;
-    }
-
     return false;
   }
 
@@ -63,6 +59,14 @@ class RecintosZoo {
       return true;
     }
     if (recinto.bioma.includes('SAVANA') && recinto.bioma.includes('RIO')) {
+      return true;
+    }
+    return false;
+  }
+
+  verificaMacaco(recinto, animal, quantidade){
+    if(animal.especie !== 'MACACO' || quantidade > 1) return true;
+    if(animal.especie === 'MACACO' && (quantidade === 1 && recinto.animais.length !== 0)){
       return true;
     }
     return false;
@@ -85,7 +89,8 @@ class RecintosZoo {
           this.verificaBioma(recinto, animalEncontrado) &&
           this.calculaEspaco(recinto, animalEncontrado, quantidade) >= 0 &&
           this.verificaCarnivoro(recinto, animalEncontrado) &&
-          this.verificaHipopotamo(recinto, animalEncontrado)
+          this.verificaHipopotamo(recinto, animalEncontrado) &&
+          this.verificaMacaco(recinto, animalEncontrado, quantidade)
       )
       .map((recinto) => {
         const espacoFinal = this.calculaEspaco(recinto, animalEncontrado, quantidade);
