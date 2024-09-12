@@ -103,7 +103,6 @@ class RecintosZoo {
 
     recintosViaveis.sort((a, b) => a.numero - b.numero);
 
-    console.log(recintosViaveis);
     return {
       erro: false,
       recintosViaveis: recintosViaveis.map(
