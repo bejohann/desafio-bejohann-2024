@@ -36,14 +36,14 @@ class RecintosZoo {
       return true;
     }
 
-    const possuiCarivoro = animaisRecinto.some((a) => a.carnivoro);
-    if(possuiCarivoro && !animal.carnivoro){
+    const possuiCarnivoro = animaisRecinto.some((a) => a.carnivoro);
+    if(possuiCarnivoro && !animal.carnivoro){
       return false;
     }
-    if(possuiCarivoro && animaisCarnivoros.includes(animal)){
+    if(possuiCarnivoro && animaisRecinto.some((a) => a.especie === animal.especie)){
       return true;
     }
-    if((!possuiCarivoro && !animal.carnivoro) || (!possuiCarivoro && animal.carnivoro && recinto.animais.includes(animal.especie))){
+    if(!possuiCarnivoro && !animal.carnivoro){
       return true;
     }
     return false;
@@ -66,9 +66,7 @@ class RecintosZoo {
 
   verificaMacaco(recinto, animal, quantidade){
     if(animal.especie !== 'MACACO' || quantidade > 1) return true;
-    if(animal.especie === 'MACACO' && (quantidade === 1 && recinto.animais.length !== 0)){
-      return true;
-    }
+    if(recinto.animais.length > 0) return true;
     return false;
   }
 
